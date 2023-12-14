@@ -529,6 +529,54 @@ The following error message codes may appear on logs or API responses. Use the f
 
   Verify the state of ZSS and IZS, then check if parameters `apiml.security.authorization.endpoint.*` are matching.
 
+### ZWEAT604E
+
+  Passwords do not match
+
+  **Reason:**
+
+  Re-entered password does not match for password update.
+
+  **Action:**
+
+  Enter the same value as the one entered for new password.
+
+### ZWEAT605E
+
+  Invalid body provided in request to create personal access token
+
+  **Reason:**
+
+  The request body is not valid
+
+  **Action:**
+
+  Use a valid body in the request. Format of a message: {validity: int , scopes: [string]}.
+
+### ZWEAT606E
+
+  Body in the HTTP request for Personal Access Token does not contain scopes
+
+  **Reason:**
+
+  The request body is not valid
+
+  **Action:**
+
+  Provide a list of services for which this token will be valid
+
+### ZWEAT607E
+
+  Body in the revoke request is not valid.
+
+  **Reason:**
+
+  The request body is not valid
+
+  **Action:**
+
+  Use a valid body in the request. Format of a message: {userId: string, (optional)timestamp: long} or {serviceId: string, (optional)timestamp: long}.
+
 ## Security client messages
 
 ### ZWEAS100E
@@ -1087,11 +1135,15 @@ The following error message codes may appear on logs or API responses. Use the f
 
   **Reason:**
 
-  A problem occurred while trying to make sure that there is a valid JWT producer available.
+  A problem occurred while trying to make sure that there is a valid JWT producer available. A possible cause of the problem is that API ML does not recognize the authentication type used by z/OSMF.
 
   **Action:**
 
-  Based on the specific information in the message, verify that the key configuration is correct, or alternatively, that z/OSMF is available.
+  Based on the specific information in the message, verify that the key configuration is correct, or alternatively, that z/OSMF is available. If z/OSMF is available, specify the authentication type used by z/OSMF in your configuration settings.
+ Use the following configuration format: ``` apiml: security: auth: zosmf: jwtAutoconfiguration: ``` Apply one of the following values:
+ * **auto** Signifies that API ML is enabled to resolve the JWT producer
+ * **jwt** Signifies that z/OSMF supports JWT (APAR PH12143 is applied)
+ * **ltpa** Signifies that z/OSMF does not support JWT
 
 ### ZWEAG714E
 
@@ -1128,6 +1180,18 @@ The following error message codes may appear on logs or API responses. Use the f
   **Action:**
 
   Verify that z/OSMF is available, accessible by the Gateway service, and online.
+
+### ZWEAG717E
+
+  The service id provided is invalid: '%s'
+
+  **Reason:**
+
+  The provided id is not valid under conformance criteria.
+
+  **Action:**
+
+  Verify the conformance criteria, provide valid service id.
 
 ### ZWEAG100E
 
@@ -1235,7 +1299,7 @@ The following error message codes may appear on logs or API responses. Use the f
 
   **Action:**
 
-  Ensure that the z/OSMF instance is configured correctly and that it is successfully registered to the Discovery Service and that the API Mediation Layer can communicate with the provided z/OSMF instance. The default timeout is 5 minutes. On a slower system, add the variable APIML_SECURITY_JWTINITIALIZERTIMEOUT=... and the value in minutes into Zowe's configuration to override this value.
+  Ensure that the z/OSMF instance is configured correctly and that it is successfully registered to the Discovery Service and that the API Mediation Layer can communicate with the provided z/OSMF instance. The default timeout is 5 minutes. On a slower system, add the variable components.gateway.apiml.security.jwtInitializerTimeout:... and the value in minutes into Zowe's configuration to override this value.
 
 ### ZWEAG109E
 
@@ -1477,17 +1541,17 @@ The following error message codes may appear on logs or API responses. Use the f
 
   Configure your client to provide valid authentication.
 
-### ZWEAG169E
+### ZWEAT607E
 
-  The 'apiml.authentication.applid' parameter is not specified for a service.
+  Body in the revoke request is not valid.
 
   **Reason:**
 
-  The applid parameter is required for the calling service.
+  The request body is not valid
 
   **Action:**
 
-  Provide the 'apiml.authentication.applid' parameter.
+  Use a valid body in the request. Format of a message: {userId: string, (optional)timestamp: long} or {serviceId: string, (optional)timestamp: long}.
 
 ## API Catalog messages
 
