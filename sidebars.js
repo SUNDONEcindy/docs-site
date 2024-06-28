@@ -200,6 +200,7 @@ module.exports = {
                 "user-guide/generate-certificates",
                 "user-guide/use-certificates",
                 "user-guide/certificates-setup",
+                "user-guide/at-tls-configuration",
               ],
             },
             {
@@ -216,11 +217,16 @@ module.exports = {
                 "user-guide/configure-sysplex",
                 "user-guide/systemrequirements-zosmf-ha",
                 "user-guide/configure-caching-service-ha",
-                  ],
-            },
-              ],
+              ]
+            }
+          ]   
         },
-        "user-guide/start-zowe-zos",
+        {
+          type: "category",
+          label: "Starting and stopping Zowe",
+          link: { type: "doc", id: "user-guide/start-zowe-zos" },
+          items: ["user-guide/api-mediation/configuration-api-mediation-standalone"]
+        },
         "user-guide/verify-zowe-runtime-install",
         {
           type: "category",
